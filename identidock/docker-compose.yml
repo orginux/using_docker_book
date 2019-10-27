@@ -11,5 +11,5 @@ identidok:
     - dnmonster
 
 dnmonster:
-  image: amouat/dnmonster
+  image: amouat/dnmonster:1.0
 ...
