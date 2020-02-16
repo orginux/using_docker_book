@@ -11,14 +11,14 @@ sudo docker-compose $COMPOSE_ARGS rm --force -v || true
 sudo docker-compose $COMPOSE_ARGS build --no-cache
 sudo docker-compose $COMPOSE_ARGS up -d
 
-sudo docker ps
-
 #Run unit tests
 sudo docker-compose $COMPOSE_ARGS run --no-deps --rm -e ENV=UNIT identidock
 ERR=$?
 
+sudo docker ps --format "table {{.Image}}\t{{.Command}}\t{{.Status}}\t{{.Names}}"
+
 #Run system test if unit tests passed
-if [ $ERR -eq0 ]; then
+if [ $ERR -eq 0 ]; then
   IP=$(sudo docker inspect -f {{.NetworkSettings.IPAddress}} jenkins_identidock_1)
   CODE=$(curl -sL -w "%{http_code}" $IP:9090/monster/bla -o /dev/null) || true
   if [ $CODE -eq 200 ]; then
