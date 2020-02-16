@@ -4,8 +4,8 @@ cd identidock/
 COMPOSE_ARGS=" -f jenkins.yml -p jenkins "
 
 #Make sure old containers are gone
-sudo docker-compose $COMPOSE_ARGS stop
-sudo docker-compose $COMPOSE_ARGS rm --force -v
+sudo docker-compose $COMPOSE_ARGS stop || true
+sudo docker-compose $COMPOSE_ARGS rm --force -v || true
 
 #build the system
 sudo docker-compose $COMPOSE_ARGS build --no-cache
